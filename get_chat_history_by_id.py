@@ -69,7 +69,10 @@ def get_chat_history_by_id():
             })
             last_messages.wait()
 
-            if last_message_id == last_messages.update['messages'][0]['id'] or last_messages.update == 'None' or not last_messages.update:
+            if len(last_messages.update['messages']) == 0 or last_messages.update == 'None' or not last_messages.update:
+                break
+
+            if last_message_id == last_messages.update['messages'][0]['id']:
                 break
 
             last_message_id = last_messages.update['messages'][0]['id']
@@ -85,8 +88,9 @@ def get_chat_history_by_id():
                     content_msg = {message['content']['sticker']['emoji']}
                 elif type == 'messageAnimatedEmoji':
                     content_msg = {message['content']['animated_emoji']['sticker']['emoji']}
+                else:
+                    content_msg = 'file'
                 messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
-
 
     print(messages_list_result)
     tg.stop()
