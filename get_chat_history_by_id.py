@@ -83,11 +83,11 @@ def get_chat_history_by_id():
                 is_out_msg = message['is_outgoing']
 
                 if type_msg == 'messageText':
-                    content_msg = {message['content']['text']['text']}
+                    content_msg = message['content']['text']['text']
                 elif type_msg == 'messageSticker':
-                    content_msg = {message['content']['sticker']['emoji']}
+                    content_msg = message['content']['sticker']['emoji']
                 elif type_msg == 'messageAnimatedEmoji':
-                    content_msg = {message['content']['animated_emoji']['sticker']['emoji']}
+                    content_msg = message['content']['animated_emoji']['sticker']['emoji']
                 else:
                     content_msg = 'file'
                 messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
