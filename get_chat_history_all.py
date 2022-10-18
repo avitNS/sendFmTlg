@@ -70,6 +70,21 @@ def get_chat_history():
         last_message_id.wait()
         last_id = last_message_id.update['messages'][0]['id']
 
+        messages_list_result += f"""{last_message_id.update['messages'][0]['id']}#SEP#
+                {last_message_id.update['messages'][0]['content']['@type']}#SEP#
+                  {last_message_id.update['messages'][0]['date']}#SEP#
+                    {last_message_id.update['messages'][0]['is_outgoing']}#SEP#
+                """
+
+        if last_message_id.update['messages'][0]['content']['@type'] == 'messageText':
+            messages_list_result += last_message_id.update['messages'][0]['content']['text']['text']
+        elif last_message_id.update['messages'][0]['content']['@type'] == 'messageSticker':
+            messages_list_result += last_message_id.update['messages'][0]['content']['sticker']['emoji']
+        elif last_message_id.update['messages'][0]['content']['@type'] == 'messageAnimatedEmoji':
+            messages_list_result += last_message_id.update['messages'][0]['content']['animated_emoji']['sticker']['emoji']
+        else:
+            messages_list_result += 'file'
+
         while True:
 
             last_messages = tg.call_method('getChatHistory', {
