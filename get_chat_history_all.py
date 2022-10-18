@@ -77,13 +77,13 @@ def get_chat_history():
                 """
 
         if last_message_id.update['messages'][0]['content']['@type'] == 'messageText':
-            messages_list_result += last_message_id.update['messages'][0]['content']['text']['text']
+            messages_list_result += f"last_message_id.update['messages'][0]['content']['text']['text']#ETR#"
         elif last_message_id.update['messages'][0]['content']['@type'] == 'messageSticker':
-            messages_list_result += last_message_id.update['messages'][0]['content']['sticker']['emoji']
+            messages_list_result += f"last_message_id.update['messages'][0]['content']['sticker']['emoji']#ETR#"
         elif last_message_id.update['messages'][0]['content']['@type'] == 'messageAnimatedEmoji':
-            messages_list_result += last_message_id.update['messages'][0]['content']['animated_emoji']['sticker']['emoji']
+            messages_list_result += f"last_message_id.update['messages'][0]['content']['animated_emoji']['sticker']['emoji']#ETR#"
         else:
-            messages_list_result += 'file'
+            messages_list_result += 'file#ETR#'
 
         while True:
 
