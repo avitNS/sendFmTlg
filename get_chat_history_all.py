@@ -70,20 +70,20 @@ def get_chat_history():
         last_message_id.wait()
         last_id = last_message_id.update['messages'][0]['id']
 
-        messages_list_result += f"""{last_message_id.update['messages'][0]['id']}#SEP#
-                {last_message_id.update['messages'][0]['content']['@type']}#SEP#
-                  {last_message_id.update['messages'][0]['date']}#SEP#
-                    {last_message_id.update['messages'][0]['is_outgoing']}#SEP#
-                """
+        id_msg = last_message_id.update['messages'][0]['id']
+        type_msg = last_message_id.update['messages'][0]['content']['@type']
+        date_msg = last_message_id.update['messages'][0]['date']
+        is_out_msg = last_message_id.update['messages'][0]['is_outgoing']
 
-        if last_message_id.update['messages'][0]['content']['@type'] == 'messageText':
-            messages_list_result += f"last_message_id.update['messages'][0]['content']['text']['text']#ETR#"
-        elif last_message_id.update['messages'][0]['content']['@type'] == 'messageSticker':
-            messages_list_result += f"last_message_id.update['messages'][0]['content']['sticker']['emoji']#ETR#"
-        elif last_message_id.update['messages'][0]['content']['@type'] == 'messageAnimatedEmoji':
-            messages_list_result += f"last_message_id.update['messages'][0]['content']['animated_emoji']['sticker']['emoji']#ETR#"
+        if type_msg == 'messageText':
+            content_msg = last_message_id.update['messages'][0]['content']['text']['text']
+        elif type_msg == 'messageSticker':
+            content_msg = last_message_id.update['messages'][0]['content']['sticker']['emoji']
+        elif type_msg == 'messageAnimatedEmoji':
+            content_msg = last_message_id.update['messages'][0]['content']['animated_emoji']['sticker']['emoji']
         else:
-            messages_list_result += 'file#ETR#'
+            content_msg = 'file'
+        messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
 
         while True:
 
