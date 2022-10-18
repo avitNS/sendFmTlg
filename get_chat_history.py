@@ -85,14 +85,13 @@ def get_chat_history():
             })
             last_messages.wait()
 
-            last_message_number = last_messages.update['total_count'] - 2
-            print(last_messages.update['total_count'])
-            print(last_messages.update['messages'][last_message_number]['id'])
-            exit()
-            if last_id == last_messages.update['messages'][last_message_number]['id'] or last_messages.update == 'None' or not last_messages.update or last_messages.update['total_count'] == 0:
+            if len(last_messages.update['messages']) == 0 or last_messages.update == 'None' or not last_messages.update:
                 break
 
-            last_id = last_messages.update['messages'][last_message_number]['id']
+            if last_id == last_messages.update['messages'][-1]['id']:
+                break
+
+            last_id = last_messages.update['messages'][-1]['id']
 
             for message in last_messages.update['messages']:
                 id_msg = message['id']
