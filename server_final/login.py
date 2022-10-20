@@ -19,7 +19,8 @@ def login():
         library_path='/usr/local/lib/python3.8/dist-packages/td/tdlib/lib/libtdjson.so.1.8.4'
     )
 
-    tg.login(blocking=False)
+    while not tg.authorization_state:
+        tg.login(blocking=False)
     print(tg.authorization_state)
     if CODE:
         tg.send_code(CODE)
