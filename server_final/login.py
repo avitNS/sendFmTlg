@@ -21,8 +21,6 @@ def login():
 
 
     tg.login(blocking=False)
-    if not tg.authorization_state:
-        tg.login(blocking=False)
     print(tg.authorization_state)
     if CODE:
         tg.send_code(CODE)
