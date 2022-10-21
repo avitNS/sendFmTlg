@@ -13,6 +13,7 @@ def get_chat_history():
     PHONE_TO = args['phone_to'][0]
     TARGET_COUNT = args['target_count'][0]
 
+
     target_user_id = ''
     tg = Telegram(
         api_id=API_ID,
@@ -57,7 +58,7 @@ def get_chat_history():
 
     messages_list_result = ''
     last_id =''
-    target_count = TARGET_COUNT
+    target_count = int(TARGET_COUNT) - 1
 
     if chat_id.update['id']:
 
@@ -100,7 +101,10 @@ def get_chat_history():
             })
             last_messages.wait()
 
-            if len(last_messages.update['messages']) == 0 or last_messages.update == 'None' or not last_messages.update:
+            if len(last_messages.update['messages']) == 0 or \
+                    last_messages.update == 'None' or \
+                    not last_messages.update or \
+                    last_messages.update['total_count'] == 0:
                 break
 
             if last_id == last_messages.update['messages'][-1]['id']:
