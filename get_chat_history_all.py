@@ -11,6 +11,7 @@ def get_chat_history():
     args = cgi.parse()
     PHONE_FROM = args['phone_from'][0]
     PHONE_TO = args['phone_to'][0]
+    TARGET_COUNT = args['target_count'][0]
 
     target_user_id = ''
     tg = Telegram(
@@ -56,6 +57,7 @@ def get_chat_history():
 
     messages_list_result = ''
     last_id =''
+    target_count = TARGET_COUNT
 
     if chat_id.update['id']:
 
@@ -87,13 +89,13 @@ def get_chat_history():
             'Photo'
         messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
 
-        while True:
+        while target_count > 0:
 
             last_messages = tg.call_method('getChatHistory', {
                 'chat_id': chat_id.update['id'],
                 'from_message_id': last_id,
                 'offset': 0,
-                'limit': 100,
+                'limit': target_count,
                 'only_local': False
             })
             last_messages.wait()
@@ -104,6 +106,8 @@ def get_chat_history():
             if last_id == last_messages.update['messages'][-1]['id']:
                 break
 
+            total_count = last_messages.update['total_count']
+            target_count = target_count - total_count
             last_id = last_messages.update['messages'][-1]['id']
 
             for message in last_messages.update['messages']:
