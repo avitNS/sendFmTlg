@@ -88,9 +88,12 @@ def get_chat_history_by_id():
                     content_msg = message['content']['sticker']['emoji']
                 elif type_msg == 'messageAnimatedEmoji':
                     content_msg = message['content']['animated_emoji']['sticker']['emoji']
-                else:
-                    content_msg = 'file'
+                elif type_msg == 'messageDocument':
+                    content_msg = message['content']['document']['file_name']
+                elif type_msg == 'messagePhoto':
+                    'Photo'
                 messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
+
 
     print(messages_list_result)
     tg.stop()
