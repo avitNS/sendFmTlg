@@ -91,6 +91,8 @@ def get_chat_history():
             content_msg = 'Фото'
         elif type_msg == 'messageVoiceNote':
             content_msg = 'Голосовое сообщение'
+        elif type_msg == 'messageCall':
+            content_msg = 'Звонок'
         if content_msg:
             messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
 
@@ -137,6 +139,8 @@ def get_chat_history():
                     content_msg = 'Фото'
                 elif type_msg == 'messageVoiceNote':
                     content_msg = 'Голосовое сообщение'
+                elif type_msg == 'messageCall':
+                    content_msg = 'Звонок'
                 if content_msg:
                     messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
 
