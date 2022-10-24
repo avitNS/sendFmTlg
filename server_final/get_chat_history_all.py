@@ -77,6 +77,7 @@ def get_chat_history():
         type_msg = last_message_id.update['messages'][0]['content']['@type']
         date_msg = last_message_id.update['messages'][0]['date']
         is_out_msg = last_message_id.update['messages'][0]['is_outgoing']
+        content_msg = ''
 
         if type_msg == 'messageText':
             content_msg = last_message_id.update['messages'][0]['content']['text']['text']
@@ -87,8 +88,11 @@ def get_chat_history():
         elif type_msg == 'messageDocument':
             content_msg = last_message_id.update['messages'][0]['content']['document']['file_name']
         elif type_msg == 'messagePhoto':
-            'Photo'
-        messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
+            content_msg = 'Фото'
+        elif type_msg == 'messageVoiceNote':
+            content_msg = 'Голосовое сообщение'
+        if content_msg:
+            messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
 
         while target_count > 0:
 
@@ -119,6 +123,7 @@ def get_chat_history():
                 type_msg = message['content']['@type']
                 date_msg = message['date']
                 is_out_msg = message['is_outgoing']
+                content_msg = ''
 
                 if type_msg == 'messageText':
                     content_msg = message['content']['text']['text']
@@ -129,8 +134,11 @@ def get_chat_history():
                 elif type_msg == 'messageDocument':
                     content_msg = message['content']['document']['file_name']
                 elif type_msg == 'messagePhoto':
-                    'Photo'
-                messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
+                    content_msg = 'Фото'
+                elif type_msg == 'messageVoiceNote':
+                    content_msg = 'Голосовое сообщение'
+                if content_msg:
+                    messages_list_result += f"{id_msg}#SEP#{type_msg}#SEP#{date_msg}#SEP#{is_out_msg}#SEP#{content_msg}#ETR#"
 
     print(messages_list_result)
     tg.stop()
